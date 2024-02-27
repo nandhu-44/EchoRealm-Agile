@@ -10,4 +10,4 @@ async function connectMongo(mongoURI){
   }
 }
 
-export { connectMongo };
+module.exports = { connectMongo };
