@@ -1,0 +1,29 @@
+{
+  "name": "echo-realm",
+  "version": "0.0.0",
+  "description": "Forge connections, share opinions, and engage in polls with strangers on our social media platform, all while embracing anonymity and sparking meaningful conversations without direct messaging.",
+  "main": "dist/index.js",
+  "scripts": {
+    "start": "node .",
+    "dev": "nodemon ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nandhu-44/EchoRealm.git"
+  },
+  "author": "n44",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/nandhu-44/EchoRealm/issues"
+  },
+  "homepage": "https://github.com/nandhu-44/EchoRealm#readme",
+  "dependencies": {
+    "chalk": "^4.1.2",
+    "dotenv": "^16.4.1",
+    "express": "^4.18.2",
+    "mongoose": "^8.1.1"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.3"
+  }
+}
