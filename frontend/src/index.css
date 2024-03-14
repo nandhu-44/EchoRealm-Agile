@@ -12,7 +12,10 @@ body {
   /* background-color: black; */
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+.main-image-area {
+  background-image: url("../public/assets/background-img.png");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-color: rgba(0, 0, 0, 0.9);
+  background-blend-mode: overlay;
 }
