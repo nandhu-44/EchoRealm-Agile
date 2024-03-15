@@ -4,8 +4,8 @@
   "description": "Forge connections, share opinions, and engage in polls with strangers on our social media platform, all while embracing anonymity and sparking meaningful conversations without direct messaging.",
   "main": "src/index.js",
   "scripts": {
-    "start": "node .",
-    "dev": "nodemon ."
+    "start": "node --no-deprecation .",
+    "dev": "nodemon --exec \"node --no-deprecation .\" -e ts,js,json,jsx,tsx,html,css,env"
   },
   "repository": {
     "type": "git",
@@ -18,6 +18,7 @@
   },
   "homepage": "https://github.com/nandhu-44/EchoRealm#readme",
   "dependencies": {
+    "@supabase/supabase-js": "^2.39.8",
     "chalk": "^4.1.2",
     "dotenv": "^16.4.5",
     "express": "^4.18.2",
