@@ -16,6 +16,6 @@ body {
   background-image: url("../public/assets/background-img.png");
   background-size: cover;
   background-repeat: no-repeat;
-  background-color: rgba(0, 0, 0, 0.9);
+  background-color: rgba(0, 0, 0, 0.85);
   background-blend-mode: overlay;
 }

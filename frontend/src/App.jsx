@@ -5,20 +5,23 @@ import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Footer from "./components/Footer";
+import { AuthProvider } from "./UserContext";
 
 function App() {
   return (
     <BrowserRouter>
-      <Header />
-      <Routes>
-        <Route path="/" element={<Home />} />
-        {/* Add login and register paths */}
-        <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Register />} />
+      <AuthProvider>
+        <Header />
+        <Routes>
+          <Route path="/" element={<Home />} />
+          {/* Add login and register paths */}
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
 
-        {/* <Route path="*" element={<NotFound />} /> */}
-      </Routes>
-      <Footer/>
+          {/* <Route path="*" element={<NotFound />} /> */}
+        </Routes>
+        <Footer />
+      </AuthProvider>
     </BrowserRouter>
   );
 }
