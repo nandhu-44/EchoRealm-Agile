@@ -7,7 +7,7 @@ import Logo from "./Logo";
 function Header() {
   return (
     <header>
-      <nav className="bg-white border-gray-200 px-4 lg:px-6 py-3 dark:bg-gray-800">
+      <nav className="bg-white border-gray-200 px-4 lg:px-6 py-3 dark:bg-gray-900">
         <div className="flex flex-wrap justify-between items-center mx-auto max-w-screen-xl">
           <Link to="/#" className="flex items-center mb-4 md:mb-0">
             <Logo className={"w-12 h-12"} />
@@ -58,11 +58,11 @@ function Header() {
           >
             <ul className="flex flex-col mt-4 font-medium lg:flex-row lg:space-x-8 lg:mt-0">
               <AnchorItem to="/" text="Home" />
-              <AnchorItem to="/#" text="Company" />
-              <AnchorItem to="/#" text="Marketplace" />
-              <AnchorItem to="/#" text="Features" />
-              <AnchorItem to="/#" text="Team" />
-              <AnchorItem to="/#" text="Contact" />
+              <AnchorItem to="/Company" text="Company" />
+              {/* <AnchorItem to="/#" text="Marketplace" /> */}
+              <AnchorItem to="/Features" text="Features" />
+              <AnchorItem to="/Team" text="Team" />
+              <AnchorItem to="/Contact" text="Contact" />
             </ul>
           </div>
         </div>
