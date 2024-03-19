@@ -1,6 +1,6 @@
 import React, { useContext, useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
-const { UserContext } = require("../UserContext");
+import { UserContext } from "../UserContext";
 
 function Login() {
   window.scrollTo(0, 0);
@@ -11,11 +11,13 @@ function Login() {
 
   const navigate = useNavigate();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    login(email, password);
-    if (localStorage.getItem("echorealm-user-data")) {
+    const response = await login(email, password);
+    if (response[0]) {
       navigate("/");
+    } else {
+      alert(response[1]?.message || "An error occurred");
     }
   };
 
@@ -74,7 +76,7 @@ function Login() {
               </div>
               <button
                 type="submit"
-                onClick={handleSubmit}
+                onClick={(e) => handleSubmit(e)}
                 className="w-full text-white focus:ring-4 focus:outline-none  font-medium rounded-lg text-sm px-5 py-2.5 text-center bg-blue-600 hover:bg-blue-700 focus:ring-blue-800"
               >
                 Log in

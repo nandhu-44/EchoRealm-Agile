@@ -4,13 +4,14 @@ const UserContext = createContext();
 const baseUrl = 'http://localhost:8080';
 
 const AuthProvider = ({ children }) => {
-    const [user, setUser] = useState(null);
+    const [user, setUser] = useState({});
     const [isAuth, setIsAuth] = useState(false);
 
     useEffect(() => {
-        const userData = JSON.parse(window.localStorage.getItem("echorealm-user-data"));
-        if (userData) {
-            setUser(userData.user);
+        const storedUser = window.localStorage.getItem("echorealm-user-data");
+        if (storedUser) {
+            const parsedUser = JSON.parse(storedUser);
+            setUser(parsedUser?.user);
             setIsAuth(true);
         }
     }, []);
@@ -18,21 +19,23 @@ const AuthProvider = ({ children }) => {
     const login = async (email, password) => {
         const response = await axios.post(`${baseUrl}/api/users/login`, { email, password }, { withCredentials: true })
         if (response.data.error) {
-            return response.data;
+            return [false, response.data.error]
         }
         window.localStorage.setItem("echorealm-user-data", JSON.stringify(response.data));
-        setUser(response.data);
+        setUser(response.data?.user);
         setIsAuth(true);
+        return [true, response.data];
     };
 
     const register = async (email, password) => {
         const response = await axios.post(`${baseUrl}/api/users/register`, { email, password }, { withCredentials: true })
         if (response.data.error) {
-            return response.data;
+            return [false, response.data.error]
         }
         window.localStorage.setItem("echorealm-user-data", JSON.stringify(response.data));
-        setUser(response.data);
+        setUser(response.data?.user);
         setIsAuth(true);
+        return [true, response.data]
     };
 
     const logout = () => {

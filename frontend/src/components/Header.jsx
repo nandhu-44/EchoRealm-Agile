@@ -66,11 +66,11 @@ function Header() {
             id="mobile-menu-2"
           >
             <ul className="flex flex-col mt-4 font-medium lg:flex-row lg:space-x-8 lg:mt-0">
-              <AnchorItem to="/" text="Home" />
+              {/* <AnchorItem to="/" text="Home" />
               <AnchorItem to="/Company" text="Company" />
               <AnchorItem to="/Features" text="Features" />
               <AnchorItem to="/Team" text="Team" />
-              <AnchorItem to="/Contact" text="Contact" />
+              <AnchorItem to="/Contact" text="Contact" /> */}
             </ul>
           </div>
         </div>

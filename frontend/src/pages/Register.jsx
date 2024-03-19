@@ -21,9 +21,11 @@ function Register() {
       alert("Password must be at least 8 characters long");
       return;
     }
-    register(email, password);
-    if (localStorage.getItem("echorealm-user-data")) {
+    const response = await register(email, password);
+    if (response[0]) {
       navigate("/");
+    } else {
+      alert(response[1]?.message || "An error occurred");
     }
   };
 
@@ -35,7 +37,7 @@ function Register() {
             <h1 className="text-xl font-bold leading-tight tracking-tight text-white md:text-2xl">
               Create an account
             </h1>
-            <form className="space-y-4 md:space-y-6" onSubmit={handleSubmit}>
+            <form className="space-y-4 md:space-y-6">
               <div>
                 <label
                   htmlFor="email"
@@ -114,6 +116,7 @@ function Register() {
               </div>
               <button
                 type="submit"
+                onClick={(e) => handleSubmit(e)}
                 className="w-full text-white bg-blue-600 hover:bg-blue-700 hover:ring-2 focus:outline-none hover:ring-blue-400 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
               >
                 Register
