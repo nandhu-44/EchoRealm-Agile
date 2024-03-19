@@ -3,31 +3,35 @@ import { useNavigate, Link } from "react-router-dom";
 const { UserContext } = require("../UserContext");
 
 function Login() {
+  window.scrollTo(0, 0);
+  window.document.title = "Login | EchoRealm";
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const { login } = useContext(UserContext);
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    const resp = login({ email, password });
-    console.log(resp);
-  };
-  // eslint-disable-next-line no-unused-vars
   const navigate = useNavigate();
 
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    login(email, password);
+    if (localStorage.getItem("echorealm-user-data")) {
+      navigate("/");
+    }
+  };
+
   return (
-    <section class="main-image-area">
-      <div class="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
-        <div class="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
-          <div class="p-6 space-y-4 md:space-y-6 sm:p-8">
-            <h1 class="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
+    <section className="main-image-area">
+      <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
+        <div className="w-full rounded-lg shadow border md:mt-0 sm:max-w-md xl:p-0 bg-gray-800 border-gray-700">
+          <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
+            <h1 className="text-xl font-bold leading-tight tracking-tight  md:text-2xl text-white">
               Sign in to your account
             </h1>
-            <form class="space-y-4 md:space-y-6" action="#">
+            <form className="space-y-4 md:space-y-6" action="#">
               <div>
                 <label
-                  for="email"
-                  class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                  htmlFor="email"
+                  className="block mb-2 text-sm font-medium  text-white"
                 >
                   Your email
                 </label>
@@ -37,15 +41,15 @@ function Login() {
                   id="email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                  className="border  sm:text-sm rounded-lg  block w-full p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500"
                   placeholder="username@echorealm.app"
-                  required="true"
+                  required={true}
                 />
               </div>
               <div>
                 <label
-                  for="password"
-                  class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                  htmlFor="password"
+                  className="block mb-2 text-sm font-medium  text-white"
                 >
                   Password
                 </label>
@@ -56,32 +60,13 @@ function Login() {
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   placeholder="••••••••••••"
-                  class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                  required="true"
+                  className="border sm:text-sm rounded-lg  block w-full p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500"
+                  required={true}
                 />
               </div>
-              <div class="flex items-center justify-between">
-                <div class="flex items-start">
-                  <div class="flex items-center h-5">
-                    <input
-                      id="remember"
-                      aria-describedby="remember"
-                      type="checkbox"
-                      class="w-4 h-4 border aria-checked:bg-blue-400 border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-blue-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-blue-600 dark:ring-offset-gray-800"
-                      required=""
-                    />
-                  </div>
-                  <div class="ml-3 text-sm">
-                    <label
-                      for="remember"
-                      class="text-gray-500 dark:text-gray-300"
-                    >
-                      Remember me
-                    </label>
-                  </div>
-                </div>
+              <div className="relative flex items-center text-right justify-between">
                 <Link
-                  class="text-sm font-medium text-blue-600 hover:underline dark:text-blue-500"
+                  className="right-0 absolute text-sm font-medium  hover:underline text-right text-blue-500"
                   to="/forgot-password"
                 >
                   Forgot password?
@@ -90,15 +75,47 @@ function Login() {
               <button
                 type="submit"
                 onClick={handleSubmit}
-                class="w-full text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                className="w-full text-white focus:ring-4 focus:outline-none  font-medium rounded-lg text-sm px-5 py-2.5 text-center bg-blue-600 hover:bg-blue-700 focus:ring-blue-800"
               >
                 Log in
               </button>
-              <p class="text-sm font-light text-gray-500 dark:text-gray-400">
+              <div className="flex flex-row justify-center items-center">
+                <div className="bg-slate-400 w-20 mt-1 mx-2 rounded-xl h-[1px] items-left"></div>
+                <span className="text-white text-xs">Or Continue With</span>
+                <div className="bg-slate-400 w-20 h-[1px] mt-1 mx-2 rounded-xl items-left"></div>
+              </div>
+
+              <div className="flex flex-col gap-y-3 justify-center items-center">
+                {/* Google button */}
+                <button
+                  type="button"
+                  className="flex flex-row  items-center justify-center gap-x-2 w-full hover:ring-2 focus:outline-none  font-medium rounded-lg text-sm px-5 py-2.5 text-center bg-gray-100 hover:bg-gray-300 hover:ring-cyan-400"
+                >
+                  <img
+                    className="h-5 w-5"
+                    src="/assets/google-icon.svg"
+                    alt=""
+                  />
+                  <p className="text-black text-base">Google</p>
+                </button>
+                {/* Github Button */}
+                <button
+                  type="button"
+                  className="w-full flex flex-row items-center justify-center gap-x-3 hover:ring-2 focus:outline-none  font-medium rounded-lg text-sm px-5 py-2.5 text-center bg-gray-900 hover:bg-gray-700 hover:ring-cyan-400"
+                >
+                  <img
+                    className="h-5 w-5"
+                    src="/assets/github-mark-white.svg"
+                    alt=""
+                  />
+                  <p className="text-white text-base">Github</p>
+                </button>
+              </div>
+              <p className="text-sm font-light  text-gray-400">
                 Don’t have an account yet?{" "}
                 <Link
                   to="/register"
-                  class="font-medium text-blue-600 hover:underline dark:text-blue-500"
+                  className="font-medium  hover:underline text-blue-500"
                 >
                   Sign up
                 </Link>

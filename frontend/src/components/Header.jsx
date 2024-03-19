@@ -1,10 +1,13 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import Button from "./Button";
 import AnchorItem from "./AnchorItems/HeaderAnchorItem";
 import Logo from "./Logo";
+import { UserContext } from "../UserContext";
 
 function Header() {
+  const { isAuth, logout } = useContext(UserContext);
+
   return (
     <header>
       <nav className="bg-white border-gray-200 px-4 lg:px-6 py-3 dark:bg-gray-900">
@@ -16,8 +19,14 @@ function Header() {
             </span>
           </Link>
           <div className="flex items-center lg:order-2 lg:gap-x-1">
-            <Button to="/register" text="Register" />
-            <Button to="/login" text="Login" />
+            {!isAuth ? (
+              <>
+                <Button to="/register" text="Register" />
+                <Button to="/login" text="Login" />
+              </>
+            ) : (
+              <Button to="/" text="Logout" onClick={() => logout()} />
+            )}
             <button
               data-collapse-toggle="mobile-menu-2"
               type="button"
@@ -59,7 +68,6 @@ function Header() {
             <ul className="flex flex-col mt-4 font-medium lg:flex-row lg:space-x-8 lg:mt-0">
               <AnchorItem to="/" text="Home" />
               <AnchorItem to="/Company" text="Company" />
-              {/* <AnchorItem to="/#" text="Marketplace" /> */}
               <AnchorItem to="/Features" text="Features" />
               <AnchorItem to="/Team" text="Team" />
               <AnchorItem to="/Contact" text="Contact" />
