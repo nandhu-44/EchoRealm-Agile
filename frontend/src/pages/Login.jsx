@@ -89,8 +89,9 @@ function Login() {
 
               <div className="flex flex-col gap-y-3 justify-center items-center">
                 {/* Google button */}
-                <button
+                <a
                   type="button"
+                  href="/api/users/auth/google" target="_blank"
                   className="flex flex-row  items-center justify-center gap-x-2 w-full hover:ring-2 focus:outline-none  font-medium rounded-lg text-sm px-5 py-2.5 text-center bg-gray-100 hover:bg-gray-300 hover:ring-cyan-400"
                 >
                   <img
@@ -98,8 +99,8 @@ function Login() {
                     src="/assets/google-icon.svg"
                     alt=""
                   />
-                  <p className="text-black text-base">Google</p>
-                </button>
+                  <p className="text-black text-base" >Google</p>
+                </a>
                 {/* Github Button */}
                 <button
                   type="button"

@@ -5,7 +5,8 @@
   "main": "src/index.js",
   "scripts": {
     "start": "node --no-deprecation .",
-    "dev": "nodemon --exec \"node --no-deprecation .\" -e ts,js,json,jsx,tsx,html,css,env"
+    "dev": "nodemon --exec \"node --no-deprecation .\" -e ts,js,json,jsx,tsx,html,css,env",
+    "build": "nodemon --exec \"cd ../frontend && npm run build\" -e ts,js,json,jsx,tsx,html,css,env"
   },
   "repository": {
     "type": "git",
@@ -24,7 +25,10 @@
     "cors": "^2.8.5",
     "dotenv": "^16.4.5",
     "express": "^4.18.2",
-    "mongoose": "^8.2.0"
+    "express-session": "^1.18.0",
+    "mongoose": "^8.2.0",
+    "passport": "^0.7.0",
+    "passport-google-oauth20": "^2.0.0"
   },
   "devDependencies": {
     "nodemon": "^3.0.3"
