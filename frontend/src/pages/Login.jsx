@@ -69,7 +69,7 @@ function Login() {
               <div className="relative flex items-center text-right justify-between">
                 <Link
                   className="right-0 absolute text-sm font-medium  hover:underline text-right text-blue-500"
-                  to="/forgot-password"
+                  to="/ForgotPassword"
                 >
                   Forgot password?
                 </Link>
