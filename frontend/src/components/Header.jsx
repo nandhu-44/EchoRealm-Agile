@@ -1,9 +1,10 @@
 import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import Button from "./Button";
-import AnchorItem from "./AnchorItems/HeaderAnchorItem";
+// import AnchorItem from "./AnchorItems/HeaderAnchorItem";
 import Logo from "./Logo";
 import { UserContext } from "../UserContext";
+import ProfileIcon from "./ProfileIcon";
 
 function Header() {
   const { isAuth, logout } = useContext(UserContext);
@@ -25,7 +26,10 @@ function Header() {
                 <Button to="/login" text="Login" />
               </>
             ) : (
-              <Button to="/" text="Logout" onClick={() => logout()} />
+              <>
+                <ProfileIcon />
+                <Button to="/" text="Logout" onClick={() => logout()} />
+              </>
             )}
             <button
               data-collapse-toggle="mobile-menu-2"

@@ -1,5 +1,6 @@
 import { createContext, useEffect, useState } from 'react';
 import axios from 'axios';
+import supabaseClient from './database/supabase';
 const UserContext = createContext();
 const baseUrl = 'http://localhost:8080';
 
@@ -7,13 +8,18 @@ const AuthProvider = ({ children }) => {
     const [user, setUser] = useState({});
     const [isAuth, setIsAuth] = useState(false);
 
+    const getUser = async () => {
+        return await supabaseClient.auth.getUser();
+    };
     useEffect(() => {
-        const storedUser = window.localStorage.getItem("echorealm-user-data");
-        if (storedUser) {
-            const parsedUser = JSON.parse(storedUser);
-            setUser(parsedUser?.user);
-            setIsAuth(true);
-        }
+        (async () => {
+            const userObject = await getUser();
+            const user = userObject?.data?.user;
+            if (user) {
+                setUser(user);
+                setIsAuth(true);
+            }
+        })();
     }, []);
 
     const login = async (email, password) => {
@@ -21,7 +27,7 @@ const AuthProvider = ({ children }) => {
         if (response.data.error) {
             return [false, response.data.error]
         }
-        window.localStorage.setItem("echorealm-user-data", JSON.stringify(response.data));
+        window.localStorage.setItem("sb-nyotjlqxnlrzwbbklyue-auth-token", JSON.stringify(response.data));
         setUser(response.data?.user);
         setIsAuth(true);
         return [true, response.data];
@@ -32,27 +38,56 @@ const AuthProvider = ({ children }) => {
         if (response.data.error) {
             return [false, response.data.error]
         }
-        window.localStorage.setItem("echorealm-user-data", JSON.stringify(response.data));
+        window.localStorage.setItem("sb-nyotjlqxnlrzwbbklyue-auth-token", JSON.stringify(response.data));
         setUser(response.data?.user);
         setIsAuth(true);
         return [true, response.data]
     };
 
     const forgotPassword = async (email) => {
-        const response = await axios.post(`${baseUrl}/api/forgot-password`, { email }, { withCredentials: true });
+        const response = await axios.post(`${baseUrl}/api/users/forgot-password`, { email }, { withCredentials: true });
         if (response.data.error) {
             return [false, response.data.error]
+        } else {
+            return [true, response]
         }
     };
 
     const logout = () => {
         setUser(null);
         setIsAuth(false);
-        window.localStorage.removeItem("echorealm-user-data");
+        window.localStorage.removeItem("sb-nyotjlqxnlrzwbbklyue-auth-token");
+    };
+
+    const handleGoogleSignIn = async (response) => {
+        try {
+            const { data, error } = await supabaseClient.auth.signInWithOAuth({
+                provider: 'google',
+                options: {
+                    queryParams: {
+                        access_type: 'offline',
+                        prompt: 'consent',
+                    }
+                }
+            })
+            if (error) {
+                console.log("Error with google login : ", error);
+                return;
+            }
+            const user = data.user;
+
+            if (user) {
+                setUser(user);
+                setIsAuth(true);
+            }
+
+        } catch (error) {
+            console.log("Error with google login : ", error);
+        }
     };
 
     return (
-        <UserContext.Provider value={{ user, setUser, login, register, logout, forgotPassword, isAuth, setIsAuth }}>
+        <UserContext.Provider value={{ user, setUser, login, register, logout, forgotPassword, isAuth, setIsAuth, handleGoogleSignIn }}>
             {children}
         </UserContext.Provider>
     );

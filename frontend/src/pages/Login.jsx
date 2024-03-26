@@ -7,7 +7,7 @@ function Login() {
   window.document.title = "Login | EchoRealm";
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const { login } = useContext(UserContext);
+  const { login, handleGoogleSignIn } = useContext(UserContext);
 
   const navigate = useNavigate();
 
@@ -69,7 +69,7 @@ function Login() {
               <div className="relative flex items-center text-right justify-between">
                 <Link
                   className="right-0 absolute text-sm font-medium  hover:underline text-right text-blue-500"
-                  to="/ForgotPassword"
+                  to="/forgot-password"
                 >
                   Forgot password?
                 </Link>
@@ -89,9 +89,10 @@ function Login() {
 
               <div className="flex flex-col gap-y-3 justify-center items-center">
                 {/* Google button */}
-                <a
+                <button
                   type="button"
-                  href="/api/users/auth/google" target="_blank"
+                  // href="/api/users/auth/google" target="_blank"
+                  onClick={(e) => handleGoogleSignIn(e)}
                   className="flex flex-row  items-center justify-center gap-x-2 w-full hover:ring-2 focus:outline-none  font-medium rounded-lg text-sm px-5 py-2.5 text-center bg-gray-100 hover:bg-gray-300 hover:ring-cyan-400"
                 >
                   <img
@@ -100,9 +101,9 @@ function Login() {
                     alt=""
                   />
                   <p className="text-black text-base" >Google</p>
-                </a>
+                </button>
                 {/* Github Button */}
-                <button
+                {/* <button
                   type="button"
                   className="w-full flex flex-row items-center justify-center gap-x-3 hover:ring-2 focus:outline-none  font-medium rounded-lg text-sm px-5 py-2.5 text-center bg-gray-900 hover:bg-gray-700 hover:ring-cyan-400"
                 >
@@ -112,7 +113,7 @@ function Login() {
                     alt=""
                   />
                   <p className="text-white text-base">Github</p>
-                </button>
+                </button> */}
               </div>
               <p className="text-sm font-light  text-gray-400">
                 Don’t have an account yet?{" "}

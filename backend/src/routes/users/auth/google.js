@@ -14,9 +14,12 @@ router.get("/", (req, res) => {
     const callbackURL = encodeURIComponent(`${req.protocol}://${req.get('host')}${callbackEndpoint}`);
     const codeVerifier = generateCodeVerifier();
     const codeChallenge = generateCodeChallenge(codeVerifier);
+    
     req.session.codeVerifier = codeVerifier;
     req.session.codeChallenge = codeChallenge;
-    const URL = `${supabaseGoogleAuthCallback.replace('/callback', '/authorize')}?provider=${provider}&state=${encodedState}&redirect_uri=${callbackURL}&code_verifier=${codeVerifier}&code_challenge=${codeChallenge}&code_challenge_method=S256`;
+    
+    // &code_verifier=${codeVerifier}&code_challenge=${codeChallenge}&code_challenge_method=S256
+    const URL = `${supabaseGoogleAuthCallback.replace('/callback', '/authorize')}?provider=${provider}&state=${encodedState}&redirect_uri=${callbackURL}`;
     res.redirect(URL);
 });
 
@@ -32,16 +35,14 @@ router.get("/callback", async (req, res) => {
         return res.status(400).send("Invalid state value");
     }
 
-    res.send("Google Auth Callback");
-
+    
     console.log("Code: ", code);
     if (!code) {
         return res.status(400).send("Invalid code value");
     }
-
-    const { data, error } = await supabaseClient.auth.exchangeCodeForSession(code, {
-        codeVerifier
-    });
+    
+    res.send("Google Auth Callback");
+    const { data, error } = await supabaseClient.auth.exchangeCodeForSession(code)
 
     if (error) {
         return res.status(500).send("An error occurred during the authentication process");
@@ -49,7 +50,6 @@ router.get("/callback", async (req, res) => {
 
     console.log("Data: ", data);
 
-    req.session.user = data?.user;
     req.session.authState = null;
 });
 

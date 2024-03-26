@@ -21,7 +21,7 @@ function App() {
           {/* Add login and register paths */}
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
-          <Route path="/forgotPassword" element={<ForgotPassword />} />
+          <Route path="/forgot-password" element={<ForgotPassword />} />
 
           <Route path="*" element={<NotFound />} />
         </Routes>

@@ -39,9 +39,17 @@ app.get("/", (_req, res) => {
 
 app.use("/api", routes);
 
-app.use("/:path",(_req, res) => {
-  res.redirect(`/?redirect-to=${_req.params.path}`);
-});
+const expressRoutes = ["/api"]
+
+// app.use("/:path", (req, res) => {
+//   expressRoutes.map((route) => {
+//     if (route === req.params?.path) {
+//       res.redirect(`/?redirect-to=${req.params.path}`);
+//     } else {
+//       res.sendFile(path.join(__dirname, "../../frontend/build/index.html"));
+//     }
+//   });
+// });
 
 app.listen(port, () => {
   console.log(`Server is running on port ${chalk.blue(port)}!`);

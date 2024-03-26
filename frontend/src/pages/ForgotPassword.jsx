@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React, { useContext, useState } from "react";
 import { UserContext } from "../UserContext";
 import { useNavigate, Link } from "react-router-dom";
@@ -6,19 +7,14 @@ function ForgotPassword() {
   window.scrollTo(0, 0);
   window.document.title = "Forgot Password | EchoRealm";
   const [email, setEmail] = useState('');
-  const [message, setMessage] = useState('');
+  // const [message, setMessage] = useState('');
   const { forgotPassword } = useContext(UserContext);
   const navigate = useNavigate();
 
   const handleForgotPassword = async (e) => {
     e.preventDefault();
     const response = await forgotPassword(email);
-    if (response[0]) {
-      setMessage('Password reset email sent. Please check your inbox.');
-      navigate("/Login");
-    } else {
-      setMessage(response[1]?.message || "An error occurred");
-    }
+    console.log(response);
   };
 
   return (
