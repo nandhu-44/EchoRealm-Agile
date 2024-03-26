@@ -19,3 +19,9 @@ body {
   background-color: rgba(0, 0, 0, 0.85);
   background-blend-mode: overlay;
 }
+
+.forgot-password {
+  margin-top: 20px;
+  padding: 10px;
+  background-color: #f1f1f1;
+}

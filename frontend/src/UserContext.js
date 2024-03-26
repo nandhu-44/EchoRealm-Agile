@@ -38,6 +38,13 @@ const AuthProvider = ({ children }) => {
         return [true, response.data]
     };
 
+    const forgotPassword = async (email) => {
+        const response = await axios.post(`${baseUrl}/api/forgot-password`, { email }, { withCredentials: true });
+        if (response.data.error) {
+            return [false, response.data.error]
+        }
+    };
+
     const logout = () => {
         setUser(null);
         setIsAuth(false);
@@ -45,7 +52,7 @@ const AuthProvider = ({ children }) => {
     };
 
     return (
-        <UserContext.Provider value={{ user, setUser, login, register, logout, isAuth, setIsAuth }}>
+        <UserContext.Provider value={{ user, setUser, login, register, logout, forgotPassword, isAuth, setIsAuth }}>
             {children}
         </UserContext.Provider>
     );
