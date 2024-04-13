@@ -1,7 +1,12 @@
 import React from "react";
+import Header from "../components/Header";
 
 const Home = () => {
-  return <div className="text-white text-center p-4 bg-slate-900">Home</div>;
+  return (
+    <>
+      <Header />
+    </>
+  );
 };
 
 export default Home;

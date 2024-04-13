@@ -1,69 +1,77 @@
 import React, { useContext, useEffect, useState } from "react";
 import { UserContext } from "../UserContext";
-import { useNavigate } from "react-router-dom";
+import { IoReloadCircle } from "react-icons/io5";
+import { FaUserCircle } from "react-icons/fa";
+import Header from "../components/Header";
 
-const ProfilePage = () => {
+const Profile = () => {
   window.scrollTo(0, 0);
-  const navigate = useNavigate();
-  window.document.title = "Profile";
   const { user } = useContext(UserContext);
-  const [username, setUsername] = useState(user?.username ?? user?.email?.split("@")[0]);
-  const [bio, setBio] = useState(user?.bio);
-  const [profilePic, setProfilePic] = useState(user?.profilePicture);
+  const [userDetails, setUserDetails] = useState();
+  useEffect(() => {
+    if (user) {
+      setUserDetails(user);
+    }
+  }, [user]);
 
   return (
-    <section className="mt-10 flex justify-center">
-      <div className="flex flex-col items-center justify-center">
-        <div className="bg-gray-800 p-8 rounded-md">
-          <h1 className="text-3xl font-serif text-red-500">Profile</h1>
-          <h2 className="text-white my-4">Update your profile</h2>
-          <div className="flex justify-center">
-            <form
-              onSubmit={(e) => {
-                e.preventDefault();
-                // Update user profile
-              }}
-              className="flex flex-col items-center"
-            >
-              <input
-                type="text"
-                value={username}
-                onChange={(e) => setUsername(e.target.value)}
-                placeholder="Username"
-                className="w-64 p-2 my-2 rounded-md"
-              />
-              <input
-                type="text"
-                value={bio}
-                onChange={(e) => setBio(e.target.value)}
-                placeholder="Bio"
-                className="w-64 p-2 my-2 rounded-md"
-              />
-              <input
-                type="file"
-                accept="image/*"
-                onChange={(e) => {
-                  const file = e.target.files[0];
-                  const reader = new FileReader();
-                  reader.onloadend = () => {
-                    setProfilePic(reader.result);
-                  };
-                  reader.readAsDataURL(file);
-                }}
-                className="w-64 p-2 my-2 rounded-md"
-              />
-              <img
-                src={profilePic?? "/profile-icon.svg"}
-                alt="Profile"
-                className="w-32 h-32 rounded-full"
-              />
-              <button
-                type="submit"
-                className="rounded-md hover:bg-blue-600 bg-blue-500 text-white px-4 py-2 text-center align-middle"
-              >
-                Update Profile
-              </button>
-            </form>
+    <section className="">
+      <Header/>
+      <div className="flex items-start mt-20 justify-center px-6 py-8 mx-auto  lg:py-0">
+        <div className="w-full rounded-lg shadow border md:mt-0 sm:max-w-md xl:p-0 bg-gray-800 border-gray-700">
+          <div className="px-4 py-6 space-y-4 md:space-y-6 sm:p-8">
+            <h2 className="text-white text-center text-2xl font-semibold">
+              User Profile
+            </h2>
+            <div className="flex flex-col">
+              {/* This div to have all contents */}
+              <div className="flex flex-row items-center">
+                {/* Image and username */}
+                {/* Image */}
+                <div className="flex items-center justify-center  bg-clip-border bg-gradient-to-br from-blue-500 via-pink-600 to-amber-600 p-[2px] rounded-full">
+                  {userDetails?.profilePicture ? (
+                    <div className="relative">
+                      <img
+                        src={userDetails?.profilePicture}
+                        alt="Profile Picture"
+                        className="size-16 md:size-24 rounded-full"
+                      />
+                      <button className="absolute bottom-0 right-0 bg-green-600 rounded-full p-0">
+                        <IoReloadCircle className="size-6 md:size-8 text-white" />
+                      </button>
+                    </div>
+                  ) : (
+                    <FaUserCircle className="size-16 md:size-24 rounded-full text-white" />
+                  )}
+                </div>
+                <div className="flex flex-col ml-6">
+                  <p className="font-bold text-white text-base lg:text-xl">
+                    Username
+                  </p>
+                  <div className="flex flex-row space-x-6 bg-gray-900 rounded-md p-1 md:p-[6px] mt-1 md:mt-2">
+                    <p className="text-blue-400  text-sm md:text-base">
+                      {userDetails?.username}
+                    </p>
+                    <div className="bg-green-600  rounded-full">
+                      <IoReloadCircle className="h-5 w-5 md:h-6 md:w-6 text-white" />
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div className="flex flex-col mt-6">
+                <div className="flex flex-row space-x-2">
+                  <p className="font-bold text-white  text-base lg:text-xl">
+                    Bio
+                  </p>
+                  <div className="bg-green-600  rounded-full">
+                    <IoReloadCircle className="h-6 w-6 md:w-7 md:h-7 text-white" />
+                  </div>
+                </div>
+                <p className="text-blue-400 text-sm text-wrap lg:text-base bg-gray-900 p-1 md:p-[6px] rounded-md mt-1 md:mt-2">
+                  {userDetails?.bio ?? ""}
+                </p>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -71,4 +79,4 @@ const ProfilePage = () => {
   );
 };
 
-export default ProfilePage;
+export default Profile;
