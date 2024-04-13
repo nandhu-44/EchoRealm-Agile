@@ -1,5 +1,27 @@
 {
-  "dependencies": {
-    "tailwindcss": "^3.4.1"
+  "name": "echorealm",
+  "version": "1.0.0",
+  "description": "Anonymous Social Media Platform",
+  "main": " ",
+  "scripts": {
+    "start" : "concurrently \"npm run server\" \"npm run client\"",
+    "install": "concurrently \"npm run server-install\" \"npm run client-install\"",
+    "server": "cd server && npm run dev",
+    "client": "cd client && npm run dev",
+    "client-install": "cd client && npm install",
+    "server-install": "cd server && npm install"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nandhu-44/EchoRealm-Agile.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/nandhu-44/EchoRealm-Agile/issues"
+  },
+  "homepage": "https://github.com/nandhu-44/EchoRealm-Agile#readme",
+  "devDependencies": {
+    "concurrently": "^8.2.2"
   }
 }
