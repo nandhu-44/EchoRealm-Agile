@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const userModel = require("../../database/models/userModel");
 const bcrypt = require("bcrypt");
+const { createRandomUserName, createAvatarURL, createRandomBio } = require("../../utils/faker");
 
 router.post("/", async (req, res) => {
   const { email, password } = req.body;
@@ -11,7 +12,7 @@ router.post("/", async (req, res) => {
       res.json({ status: 401, message: "User already exists" });
     } else {
       const hashedPassword = await bcrypt.hash(password, 10);
-      const newUser = new userModel({ email, password: hashedPassword });
+      const newUser = new userModel({ email, password: hashedPassword, username: createRandomUserName(), profilePicture: createAvatarURL(), bio: createRandomBio()});
       await newUser.save();
       let userObject = newUser.toObject();
       delete userObject.password;

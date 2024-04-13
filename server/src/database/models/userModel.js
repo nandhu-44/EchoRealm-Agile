@@ -40,11 +40,15 @@ const userSchema = new Schema({
   },
   bio: {
     type: String,
-    default: "Echoing thoughts...",
+    default: "",
   },
   authProvider: {
     type: String,
     default: "local",
+  },
+  status: {
+    type: String,
+    default: "offline",
   },
 });
 
