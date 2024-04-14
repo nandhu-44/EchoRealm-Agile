@@ -1,5 +1,9 @@
 import { faker } from "@faker-js/faker";
 
+/**
+ * Generates a random username.
+ * @returns {string} The random username.
+ */
 function createRandomUserName() {
     let username = faker.internet.userName();
     if (!/\d$/.test(username) && randomInt(0, 3) === 1) {
@@ -9,10 +13,18 @@ function createRandomUserName() {
     return sanitizeUsername(username);
 }
 
+/**
+ * Generates a random avatar URL.
+ * @returns {string} The random avatar URL.
+ */
 function createAvatarURL() {
     return faker.image.avatar();
 }
 
+/**
+ * Generates a random bio phrase.
+ * @returns {string} The random bio phrase.
+ */
 function createRandomBio() {
     const bioPhrases = [
         "Dreamer. Explorer. Lover of life.",
@@ -66,15 +78,26 @@ function createRandomBio() {
         "Seeking the beauty in every moment.",
         "Chasing sunsets and starlight."
     ];
-   return bioPhrases[randomInt(0, bioPhrases.length - 1)];
+    return bioPhrases[randomInt(0, bioPhrases.length - 1)];
 }
 
+/**
+ * Sanitizes a username by removing special characters and spaces.
+ * @param {string} username - The username to sanitize.
+ * @returns {string} The sanitized username.
+ */
 function sanitizeUsername(username) {
     return username.replace(/[^a-zA-Z0-9_.]/g, "").replace(/\s/g, "_").toLowerCase();
 }
 
+/**
+ * Generates a random integer between the specified range.
+ * @param {number} min - The minimum value of the range.
+ * @param {number} max - The maximum value of the range.
+ * @returns {number} The random integer.
+ */
 function randomInt(min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
-} 
+}
 
-export default { createRandomUserName, createAvatarURL, createRandomBio};
+export  { createRandomUserName, createAvatarURL, createRandomBio };

@@ -4,6 +4,7 @@ const path = require("path");
 const cors = require("cors");
 const bodyParser = require("body-parser");
 const expressSession = require("express-session");
+const rateLimitMiddleware = require("./middlewares/rateLimiter");
 const dotenv = require("dotenv");
 dotenv.config();
 console.clear();
@@ -20,6 +21,7 @@ app.use(cors({
   origin: process.env.CLIENT_URL,
   credentials: true,
 }));
+app.use(rateLimitMiddleware);
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(expressSession({
@@ -30,6 +32,10 @@ app.use(expressSession({
 
 app.get("/", (_req, res) => {
   res.send("Server is running!");
+});
+
+app.post("/", (req, res) => {
+  res.json({ message: "Testing : " + req.body?.content ?? "none" });
 });
 
 app.use("/api", routes);

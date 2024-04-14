@@ -16,7 +16,7 @@ const Header = () => {
 
   return (
     <header className="bg-gray-800">
-      <div className="flex items-center justify-between px-8 py-2">
+      <div className="flex items-center justify-between px-2 md:px-4 lg:px-8 py-2">
         <Link to="/" className="flex flex-row items-center">
           <img src="/EchoRealm.svg" className="lg:size-10 size-6" alt="" />
           <h1 className="text-[#fbe0ce] mx-1 text-xl font-semibold">

@@ -67,7 +67,7 @@ const UserProvider = ({ children }) => {
         `${backendUrl}/api/users/forgot-password`,
         {
           email,
-        },
+        }
       );
       return response?.data;
     } catch (error) {
@@ -85,7 +85,7 @@ const UserProvider = ({ children }) => {
           userId,
           resetToken,
           password,
-        },
+        }
       );
       return response?.data;
     } catch (error) {
@@ -94,8 +94,51 @@ const UserProvider = ({ children }) => {
     }
   };
 
+  // Update Profile
+  const updateProfile = async (
+    userId,
+    profilePicture,
+    username,
+    bio,
+    email,
+    password
+  ) => {
+    try {
+      const response = await axios.post(
+        `${backendUrl}/api/users/update-profile`,
+        {
+          userId,
+          profilePicture,
+          username,
+          bio,
+          email,
+          password,
+        }
+      );
+      if (response?.data.status === 200) {
+        setUser(response?.data?.user);
+        localStorage.setItem("user", JSON.stringify(response?.data?.user));
+      }
+      return response?.data;
+    } catch (error) {
+      console.error(error);
+      return null;
+    }
+  };
+
   return (
-    <UserContext.Provider value={{ user, setUser, login, register, logout, forgotPassword, resetPassword }}>
+    <UserContext.Provider
+      value={{
+        user,
+        setUser,
+        login,
+        register,
+        logout,
+        forgotPassword,
+        resetPassword,
+        updateProfile,
+      }}
+    >
       {children}
     </UserContext.Provider>
   );
