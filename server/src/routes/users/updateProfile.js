@@ -16,6 +16,11 @@ router.post('/', async (req, res) => {
             return res.json({ status: 401, message: 'Invalid password' });
         }
 
+        const userWithSameEmail = await UserModel.findOne({ email });
+        if (userWithSameEmail && userWithSameEmail._id.toString() !== userId) {
+            return res.json({ status: 400, message: 'Email already in use' });
+        }
+
         user.profilePicture = profilePicture;
         user.username = username;
         user.bio = bio;

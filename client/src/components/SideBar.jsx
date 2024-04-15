@@ -12,6 +12,7 @@ const SideBar = ({ hamburgerData }) => {
   const [hamburgerVisible, setHamburgerVisible] = hamburgerData;
   return (
     <aside
+      id="sidebar"
       className={`bg-slate-800 h-screen w-full lg:w-60 p-4 ${
         hamburgerVisible ? "flex relative" : "hidden"
       } lg:flex text-white flex-col`}
@@ -66,6 +67,7 @@ const SideBar = ({ hamburgerData }) => {
         icon={<HiLogout />}
         text="Logout"
         clickFunc={() => {
+          setHamburgerVisible(false);
           logout();
           navigate("/signin");
         }}

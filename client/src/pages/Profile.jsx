@@ -91,139 +91,145 @@ const Profile = ({ hamburgerData }) => {
     }
   };
 
+  const [hamburgerVisible, _setHamburgerVisible] = hamburgerData;
+
   return (
     <section className="lg:flex lg:flex-row w-full relative">
       <NotAuthRedirect />
-      <SideBar hamburgerData={hamburgerData}/>
-      <div className="flex items-start mt-20 justify-center px-2 md:px-6 py-8 mx-auto lg:py-0">
-        <div className="w-full rounded-lg shadow border md:mt-0 sm:max-w-md xl:p-0 bg-gray-800 border-gray-700">
-          <div className="px-4 py-6 space-y-4 md:space-y-6 md:w-[400px]">
-            <h2 className="text-white text-center text-2xl font-semibold">
-              User Profile
-            </h2>
-            <div className="flex flex-col">
-              {/* This div to have all contents */}
-              <div className="flex flex-row items-center">
-                {/* Image and username */}
-                {/* Image */}
-                <div className="flex items-center justify-center  bg-clip-border bg-gradient-to-br from-blue-500 via-pink-600 to-amber-600 p-[2px] rounded-full">
-                  {newProfilePicture ? (
-                    <div className="relative">
-                      <img
-                        src={newProfilePicture}
-                        alt=""
-                        className="size-16 md:size-24 rounded-full"
-                      />
-                      <button
-                        className={`absolute bottom-0 right-0 bg-green-600 rounded-full p-0 ${
-                          rotatingProfilePic ? "rotate-360" : ""
+      <SideBar hamburgerData={hamburgerData} />
+      {!hamburgerVisible && (
+        <div className="flex items-start mt-20 justify-center px-2 md:px-6 py-8 mx-auto lg:py-0">
+          <div className="w-full rounded-lg shadow border md:mt-0 sm:max-w-md xl:p-0 bg-gray-800 border-gray-700">
+            <div className="px-4 py-6 space-y-4 md:space-y-6 md:w-[400px]">
+              <h2 className="text-white text-center text-2xl font-semibold">
+                User Profile
+              </h2>
+              <div className="flex flex-col">
+                {/* This div to have all contents */}
+                <div className="flex flex-row items-center">
+                  {/* Image and username */}
+                  {/* Image */}
+                  <div className="flex items-center justify-center  bg-clip-border bg-gradient-to-br from-blue-500 via-pink-600 to-amber-600 p-[2px] rounded-full">
+                    {newProfilePicture ? (
+                      <div className="relative">
+                        <img
+                          src={newProfilePicture}
+                          alt=""
+                          className="size-16 md:size-24 rounded-full"
+                        />
+                        <button
+                          className={`absolute bottom-0 right-0 bg-green-600 rounded-full p-0 ${
+                            rotatingProfilePic ? "rotate-360" : ""
+                          }`}
+                          onClick={() => {
+                            handleProfilePictureChange();
+                            setRotatingProfilePic((prevState) => !prevState);
+                            setTimeout(
+                              () =>
+                                setRotatingProfilePic(
+                                  (prevState) => !prevState
+                                ),
+                              510
+                            );
+                          }}
+                        >
+                          <IoReloadCircle className="size-6 md:size-8 text-white" />
+                        </button>
+                      </div>
+                    ) : (
+                      <FaUserCircle className="size-16 md:size-24 rounded-full text-white" />
+                    )}
+                  </div>
+                  <div className="flex flex-col ml-6">
+                    <p className="font-bold text-white text-base lg:text-xl">
+                      Username
+                    </p>
+                    <div className="flex flex-row space-x-6 bg-gray-900 rounded-md p-1 md:p-[6px] mt-1 md:mt-2">
+                      <p className="text-blue-400  text-sm md:text-base">
+                        {newUsername}
+                      </p>
+                      <div
+                        id="username-changer"
+                        className={`bg-green-600  rounded-full hover:cursor-pointer ${
+                          rotatingUsername ? "rotate-360" : ""
                         }`}
                         onClick={() => {
-                          handleProfilePictureChange();
-                          setRotatingProfilePic((prevState) => !prevState);
-                          setTimeout(
-                            () =>
-                              setRotatingProfilePic((prevState) => !prevState),
-                            510
-                          );
+                          handleUsernameChange();
+                          setRotatingUsername((name) => !name);
+                          setTimeout(() => {
+                            setRotatingUsername((name) => !name);
+                          }, 510);
                         }}
                       >
-                        <IoReloadCircle className="size-6 md:size-8 text-white" />
-                      </button>
+                        <IoReloadCircle className="h-5 w-5 md:h-6 md:w-6 text-white" />
+                      </div>
                     </div>
-                  ) : (
-                    <FaUserCircle className="size-16 md:size-24 rounded-full text-white" />
-                  )}
+                  </div>
                 </div>
-                <div className="flex flex-col ml-6">
-                  <p className="font-bold text-white text-base lg:text-xl">
-                    Username
-                  </p>
-                  <div className="flex flex-row space-x-6 bg-gray-900 rounded-md p-1 md:p-[6px] mt-1 md:mt-2">
-                    <p className="text-blue-400  text-sm md:text-base">
-                      {newUsername}
+                <div className="flex flex-col mt-6">
+                  <div className="flex flex-row space-x-2">
+                    <p className="font-bold text-white  text-base lg:text-xl">
+                      Bio
                     </p>
                     <div
-                      id="username-changer"
+                      id="bio-changer"
                       className={`bg-green-600  rounded-full hover:cursor-pointer ${
-                        rotatingUsername ? "rotate-360" : ""
+                        rotatingBio ? "rotate-360" : ""
                       }`}
                       onClick={() => {
-                        handleUsernameChange();
-                        setRotatingUsername((name) => !name);
+                        handleBioChange();
+                        setRotatingBio((bio) => !bio);
                         setTimeout(() => {
-                          setRotatingUsername((name) => !name);
+                          setRotatingBio((bio) => !bio);
                         }, 510);
                       }}
                     >
-                      <IoReloadCircle className="h-5 w-5 md:h-6 md:w-6 text-white" />
+                      <IoReloadCircle className="h-6 w-6 md:w-7 md:h-7 text-white" />
                     </div>
                   </div>
-                </div>
-              </div>
-              <div className="flex flex-col mt-6">
-                <div className="flex flex-row space-x-2">
-                  <p className="font-bold text-white  text-base lg:text-xl">
-                    Bio
+                  <p className="text-blue-400 text-sm text-wrap lg:text-base bg-gray-900 p-1 md:p-[6px] rounded-md mt-1 md:mt-2">
+                    {newBio}
                   </p>
-                  <div
-                    id="bio-changer"
-                    className={`bg-green-600  rounded-full hover:cursor-pointer ${
-                      rotatingBio ? "rotate-360" : ""
-                    }`}
-                    onClick={() => {
-                      handleBioChange();
-                      setRotatingBio((bio) => !bio);
-                      setTimeout(() => {
-                        setRotatingBio((bio) => !bio);
-                      }, 510);
-                    }}
-                  >
-                    <IoReloadCircle className="h-6 w-6 md:w-7 md:h-7 text-white" />
-                  </div>
-                </div>
-                <p className="text-blue-400 text-sm text-wrap lg:text-base bg-gray-900 p-1 md:p-[6px] rounded-md mt-1 md:mt-2">
-                  {newBio}
-                </p>
-                {/* Add email field in form */}
-                <form action="#" className="flex flex-col py-2 relative">
-                  <label
-                    htmlFor="email"
-                    className="font-bold text-white  text-base lg:text-xl justify-between flex items-center"
-                  >
-                    <span>
-                      Email{" "}
-                      {/* <span className="text-gray-300 italic font-light  text-sm ml-2lg:text-base">
+                  {/* Add email field in form */}
+                  <form action="#" className="flex flex-col py-2 relative">
+                    <label
+                      htmlFor="email"
+                      className="font-bold text-white  text-base lg:text-xl justify-between flex items-center"
+                    >
+                      <span>
+                        Email{" "}
+                        {/* <span className="text-gray-300 italic font-light  text-sm ml-2lg:text-base">
                         (Tap to edit)
                       </span> */}
-                    </span>
-                  </label>
-                  <div className="flex flex-row justify-between items-center text-blue-400 text-sm text-wrap lg:text-base bg-gray-900 p-1 md:p-[6px] rounded-md mt-1 md:mt-2 focus:outline-none focus:ring-0">
-                    <input
-                      type="email"
-                      name="email"
-                      id="email"
-                      className="text-blue-400 text-sm text-wrap w-full lg:text-base bg-gray-900 focus:outline-none focus:ring-0 border-0"
-                      value={newEmail}
-                      onChange={(e) => setNewEmail(e.target.value)}
-                    />
-                    <FaRegEdit className="size-4 md:size-6 text-white" />
-                  </div>
-                </form>
-                {changed ? (
-                  <button
-                    className="bg-blue-500  rounded-md py-2 mt-2 text-white text-base font-semibold hover:bg-blue-600 focus:outline-none focus:ring-0 focus:border-blue-700"
-                    onClick={() => setShowModal(true)}
-                  >
-                    {" "}
-                    Save Changes
-                  </button>
-                ) : null}
+                      </span>
+                    </label>
+                    <div className="flex flex-row justify-between items-center text-blue-400 text-sm text-wrap lg:text-base bg-gray-900 p-1 md:p-[6px] rounded-md mt-1 md:mt-2 focus:outline-none focus:ring-0">
+                      <input
+                        type="email"
+                        name="email"
+                        id="email"
+                        className="text-blue-400 text-sm text-wrap w-full lg:text-base bg-gray-900 focus:outline-none focus:ring-0 border-0"
+                        value={newEmail}
+                        onChange={(e) => setNewEmail(e.target.value)}
+                      />
+                      <FaRegEdit className="size-4 md:size-6 text-white" />
+                    </div>
+                  </form>
+                  {changed ? (
+                    <button
+                      className="bg-blue-500  rounded-md py-2 mt-2 text-white text-base font-semibold hover:bg-blue-600 focus:outline-none focus:ring-0 focus:border-blue-700"
+                      onClick={() => setShowModal(true)}
+                    >
+                      {" "}
+                      Save Changes
+                    </button>
+                  ) : null}
+                </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
+      )}
       {changed && (
         <Modal
           dismissible

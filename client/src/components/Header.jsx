@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import { UserContext } from "../UserContext";
 import { FaUserCircle } from "react-icons/fa";
@@ -12,14 +12,9 @@ const Header = ({ allowedRoutes, currentPath, hamburgerData }) => {
 
   // If path is allowed
   const { user } = useContext(UserContext);
-  const [userDetails, setUserDetails] = useState({});
   const [hamburgerVisible, setHamburgerVisible] = hamburgerData;
 
-  useEffect(() => {
-    if (user) {
-      setUserDetails(user);
-    }
-  }, [user]);
+
 
   return (
     <header className="bg-gray-700 border-b border-gray-800">
@@ -47,9 +42,9 @@ const Header = ({ allowedRoutes, currentPath, hamburgerData }) => {
                 to="/profile"
                 className="flex border-2 border-white rounded-full"
               >
-                {userDetails?.profilePicture ? (
+                {user?.profilePicture ? (
                   <img
-                    src={userDetails?.profilePicture}
+                    src={user?.profilePicture}
                     alt="Profile Picture"
                     className="size-8 rounded-full"
                   />

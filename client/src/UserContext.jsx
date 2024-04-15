@@ -8,13 +8,14 @@ const UserProvider = ({ children }) => {
   const backendUrl = import.meta.env.VITE_BACKEND_URL;
 
   useEffect(() => {
-    const userData = localStorage.getItem("user");
-    if (userData) {
-      setUser(JSON.parse(userData));
+    const userData = JSON.parse(localStorage.getItem("user"));
+    if (userData && userData._id) {
+      fetchUserDetails(userData._id);
     }
   }, []);
 
   // User Handling
+  
 
   // Login
   const login = async (email, password) => {
@@ -120,6 +121,27 @@ const UserProvider = ({ children }) => {
         localStorage.setItem("user", JSON.stringify(response?.data?.user));
       }
       return response?.data;
+    } catch (error) {
+      console.error(error);
+      return null;
+    }
+  };
+
+  // Fetch User Details
+  const fetchUserDetails = async (userId) => {
+    try {
+      const response = await axios.post(
+        `${backendUrl}/api/users/get-user-details`,
+        {
+          userId,
+        }
+      );
+      const data = response?.data;
+      if (data?.status === 200) {
+        setUser(data?.user);
+        localStorage.setItem("user", JSON.stringify(data?.user));
+      }
+      return data;
     } catch (error) {
       console.error(error);
       return null;
