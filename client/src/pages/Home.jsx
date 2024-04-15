@@ -1,11 +1,13 @@
 import React from "react";
-import Header from "../components/Header";
+import NotAuthRedirect from "../components/NotAuthRedirect";
+import SideBar from "../components/SideBar";
 
-const Home = () => {
+const Home = ({ hamburgerData }) => {
   return (
-    <>
-      <Header />
-    </>
+    <section className="relative">
+      <NotAuthRedirect />
+      <SideBar hamburgerData={hamburgerData} />
+    </section>
   );
 };
 

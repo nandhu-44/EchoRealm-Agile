@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { UserContext } from "../UserContext";
 import { IoReloadCircle } from "react-icons/io5";
 import { FaUserCircle, FaRegEdit } from "react-icons/fa";
-import Header from "../components/Header";
+import { IoArrowBack } from "react-icons/io5";
 import "./Profile.css";
 import {
   createRandomUserName,
@@ -10,8 +10,10 @@ import {
   createRandomBio,
 } from "../utils/faker";
 import { Modal } from "flowbite-react";
+import NotAuthRedirect from "../components/NotAuthRedirect";
+import SideBar from "../components/SideBar";
 
-const Profile = () => {
+const Profile = ({ hamburgerData }) => {
   window.scrollTo(0, 0);
   const { user, updateProfile } = useContext(UserContext);
   const [newProfilePicture, setNewProfilePicture] = useState(null);
@@ -90,11 +92,12 @@ const Profile = () => {
   };
 
   return (
-    <section className="">
-      <Header />
-      <div className="flex items-start mt-20 justify-center px-6 py-8 mx-auto  lg:py-0">
+    <section className="lg:flex lg:flex-row w-full relative">
+      <NotAuthRedirect />
+      <SideBar hamburgerData={hamburgerData}/>
+      <div className="flex items-start mt-20 justify-center px-2 md:px-6 py-8 mx-auto lg:py-0">
         <div className="w-full rounded-lg shadow border md:mt-0 sm:max-w-md xl:p-0 bg-gray-800 border-gray-700">
-          <div className="px-4 py-6 space-y-4 md:space-y-6 sm:p-8">
+          <div className="px-4 py-6 space-y-4 md:space-y-6 md:w-[400px]">
             <h2 className="text-white text-center text-2xl font-semibold">
               User Profile
             </h2>
@@ -108,7 +111,7 @@ const Profile = () => {
                     <div className="relative">
                       <img
                         src={newProfilePicture}
-                        alt="Profile Picture"
+                        alt=""
                         className="size-16 md:size-24 rounded-full"
                       />
                       <button

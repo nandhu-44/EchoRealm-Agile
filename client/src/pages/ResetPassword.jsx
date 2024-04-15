@@ -1,6 +1,7 @@
 import React, { useContext, useState } from "react";
 import { useParams, Link, useNavigate } from "react-router-dom";
 import { UserContext } from "../UserContext";
+import AuthRedirect from "../components/AuthRedirect";
 
 const ResetPassword = () => {
   const { userId, resetToken } = useParams();
@@ -26,6 +27,7 @@ const ResetPassword = () => {
 
   return (
     <section className="">
+      <AuthRedirect />
       <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
         <div className="w-full rounded-lg shadow border md:mt-0 sm:max-w-md xl:p-0 bg-gray-800 border-gray-700">
           <div className="p-6 space-y-4 md:space-y-6 sm:p-8">

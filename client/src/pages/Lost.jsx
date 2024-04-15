@@ -7,9 +7,9 @@ const Lost = () => {
     ? { text: "Home", link: "/" }
     : { text: "Sign In", link: "/signin" };
   return (
-    <section className="h-screen flex flex-col items-center justify-center">
-      <div className="bg-gray-800 p-8 rounded-md">
-        <h1 className="text-3xl font-serif text-red-500">Page not found!</h1>
+    <section className="h-screen flex flex-col items-center justify-center px-2">
+      <div className="bg-gray-800 p-5 lg:p-8 rounded-md">
+        <h1 className="text-lg lg:text-2xl font-semibold text-white"><span className="text-red-500">Error 404: </span> Page not found!</h1>
         <h2 className="text-white my-4">
           The page you are looking for doesn't exist.
         </h2>
