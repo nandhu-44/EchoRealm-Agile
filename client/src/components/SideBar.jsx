@@ -1,12 +1,12 @@
 import React, { useContext } from "react";
-import { HiHome, HiChat, HiLogout, HiInformationCircle } from "react-icons/hi";
+import { HiHome, HiChat, HiLogout, HiInformationCircle, HiChatAlt } from "react-icons/hi";
 import { AiFillCloseCircle } from "react-icons/ai";
 import { FaUserEdit } from "react-icons/fa";
 import SideBarElement from "./SideBarElement";
 import { UserContext } from "../UserContext";
 import { useNavigate } from "react-router-dom";
 
-const SideBar = ({ hamburgerData }) => {
+const SideBar = ({ hamburgerData, setIsChatsOpen }) => {
   const { logout } = useContext(UserContext);
   const navigate = useNavigate();
   const [hamburgerVisible, setHamburgerVisible] = hamburgerData;
@@ -51,12 +51,22 @@ const SideBar = ({ hamburgerData }) => {
           setHamburgerVisible(false);
         }}
       />
+      <div className="w-full h-[1px] bg-gray-600 rouned-md"></div>
       {/* Chatroom */}
       <SideBarElement
         icon={<HiChat />}
         text="Chatroom"
         to="/chatroom"
         clickFunc={() => {
+          setHamburgerVisible(false);
+        }}
+      />
+      <SideBarElement
+        icon={<HiChatAlt />}
+        text="Chat Page"
+        to=""
+        clickFunc={() => {
+          setIsChatsOpen((prev) => !prev);
           setHamburgerVisible(false);
         }}
       />
