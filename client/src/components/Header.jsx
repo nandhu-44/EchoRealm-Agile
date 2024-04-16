@@ -22,7 +22,7 @@ const Header = ({ allowedRoutes, currentPath, hamburgerData }) => {
         <div className="flex flex-row items-center space-x-2">
           {/* Hamburger */}
           <button
-            className="lg:hidden text-[#fbe0ce] bg-gray-800 p-2 rounded-md"
+            className="lg:hidden text-slate-100 bg-gray-800 p-2 rounded-md"
             onClick={() => setHamburgerVisible(!hamburgerVisible)}
           >
             <FaList />
@@ -30,7 +30,7 @@ const Header = ({ allowedRoutes, currentPath, hamburgerData }) => {
           {/* Logo */}
           <Link to="/" className="flex flex-row items-center">
             <img src="/EchoRealm.svg" className="lg:size-10 size-6" alt="" />
-            <h1 className="text-[#fbe0ce] mx-1 text-xl font-medium md:font-semibold">
+            <h1 className="text-blue-500 mx-1 text-xl font-medium md:font-semibold">
               EchoRealm
             </h1>
           </Link>
@@ -40,7 +40,7 @@ const Header = ({ allowedRoutes, currentPath, hamburgerData }) => {
             <li>
               <Link
                 to="/profile"
-                className="flex border-2 border-white rounded-full"
+                className="flex border-2 border-blue-400 rounded-full"
               >
                 {user?.profilePicture ? (
                   <img
@@ -49,7 +49,7 @@ const Header = ({ allowedRoutes, currentPath, hamburgerData }) => {
                     className="size-8 rounded-full"
                   />
                 ) : (
-                  <FaUserCircle className="size-8 text-white" />
+                  <FaUserCircle className="size-8 text-blue-400" />
                 )}
               </Link>
             </li>
