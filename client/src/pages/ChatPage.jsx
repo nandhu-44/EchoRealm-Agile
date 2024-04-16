@@ -11,7 +11,7 @@ function ChatPage({ isChatsOpen }) {
   const user = JSON.parse(localStorage.getItem("user"));
   const scrollRef = useRef();
 
-  const socket = io("http://localhost:8080"); // Change this to your server URL that you get from render example https://mernchatserver-mup6.onrender.com
+  const socket = io(import.meta.env.VITE_BACKEND_URL);
 
   useEffect(() => {
     const joinRoomInterval = setInterval(() => {
