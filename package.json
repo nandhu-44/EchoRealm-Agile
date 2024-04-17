@@ -5,9 +5,11 @@
   "main": " ",
   "scripts": {
     "start" : "concurrently \"npm run server\" \"npm run client\"",
+    "host" : "concurrently \"npm run server\" \"npm run client-host\"",
     "install": "concurrently \"npm run server-install\" \"npm run client-install\"",
     "server": "cd server && npm run dev",
     "client": "cd client && npm run dev",
+    "client-host": "cd client && npm run dev-host",
     "client-install": "cd client && npm install",
     "server-install": "cd server && npm install"
   },

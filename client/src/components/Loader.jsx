@@ -1,7 +1,7 @@
 import React from "react";
 import "./Loader.css";
 
-const Loader = () => {
+const Loader = ({ text }) => {
   return (
     <div className="flex flex-row my-20 items-center justify-center lg:mx-auto lg:items-start ">
       <div className="loader">
@@ -39,7 +39,7 @@ const Loader = () => {
             </li>
           </ul>
         </div>
-        <span>Loading</span>
+        <span>{text ?? "Loading..."}</span>
       </div>
     </div>
   );

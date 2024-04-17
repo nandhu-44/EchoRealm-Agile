@@ -77,10 +77,16 @@ function createRoom() {
 }
 
 io.on("connection", (socket) => {
-  socket.on("join", () => {
+  socket.on("join", ({ username }) => {
     // Check if the socket is already in the waitlist
-    if (!waitlist.includes(socket)) {
-      waitlist.push(socket);
+    if (!waitlist.includes({
+      username,
+      socket
+    })) {
+      waitlist.push({
+        username,
+        socket
+      });
     }
 
     // If theres only one user in the waitlist then return
@@ -99,6 +105,8 @@ io.on("connection", (socket) => {
       const user1 = waitlist[randomIndex1];
       const user2 = waitlist[randomIndex2];
       if (!user1 || !user2) return;
+      if (!user1.socket || !user2.socket) return;
+      if (user1.username === user2.username) return;
 
       // Remove the selected users from the waitlist
       waitlist.splice(randomIndex1, 1);
@@ -109,11 +117,16 @@ io.on("connection", (socket) => {
 
       // Creates a room and join the users to it
       const roomID = createRoom();
-      user1.join(roomID);
-      user2.join(roomID);
+      user1.socket.join(roomID);
+      user2.socket.join(roomID);
 
       // Emits a roomReady event to the selected users
-      io.to(roomID).emit("roomReady", { id: roomID });
+      // io.to(roomID).emit("roomReady", { id: roomID });
+      io.to(roomID).emit("roomReady", {
+        id: roomID,
+        user1: user1.username,
+        user2: user2.username
+      });
     }
   });
 
@@ -123,8 +136,18 @@ io.on("connection", (socket) => {
   });
 
   socket.on('disconnecting', (roomID) => {
-    io.to(roomID).emit('otherUserDisconnected', roomID);
-  })
+    const room = io.sockets.adapter.rooms.get(roomID);
+    if (room) {
+      const sockets = Array.from(room);
+      if (sockets.length === 2) {
+        const remainingSocket = sockets.find(s => s !== socket.id);
+        const remainingUser = waitlist.find(user => user.socket.id === remainingSocket);
+        waitlist.push(remainingUser);
+        io.to(remainingSocket).emit('otherUserDisconnected');
+        socket.leave(roomID);
+      }
+    }
+  });
 
   socket.on("disconnect", () => {
 
@@ -134,3 +157,7 @@ io.on("connection", (socket) => {
     }
   });
 });
+
+setInterval(() => {
+  console.log("Users in waiting list", waitlist.length);
+}, 3000);

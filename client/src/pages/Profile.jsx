@@ -42,7 +42,7 @@ const Profile = ({ hamburgerData }) => {
       setNewUsername(user?.username);
       setNewBio(user?.bio);
       setNewEmail(user?.email);
-      setLoading(false);
+      setTimeout(() => setLoading(false), 1000);
     }
   }, [user]);
 
