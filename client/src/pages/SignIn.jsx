@@ -29,7 +29,7 @@ const SignIn = () => {
         <div className="w-full rounded-lg shadow border md:mt-0 sm:max-w-md xl:p-0 bg-gray-800 border-gray-700">
           <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
             <h1 className="text-xl font-bold leading-tight tracking-tight  md:text-2xl text-white">
-              Sign in to your account
+              EchoRealm | Sign in
             </h1>
             <form className="space-y-4 md:space-y-6" action="#">
               <div>
@@ -83,13 +83,13 @@ const SignIn = () => {
               >
                 Log in
               </button>
-              <div className="flex flex-row justify-center items-center">
+              <div className="flex-row justify-center items-center hidden">
                 <div className="bg-slate-400 w-20 mt-1 mx-2 rounded-xl h-[1px] items-left"></div>
                 <span className="text-white text-xs">Or Continue With</span>
                 <div className="bg-slate-400 w-20 h-[1px] mt-1 mx-2 rounded-xl items-left"></div>
               </div>
 
-              <div className="flex flex-col gap-y-3 justify-center items-center">
+              <div className=" flex-col gap-y-3 justify-center items-center hidden">
                 {/* Google button */}
                 <a
                   type="button"

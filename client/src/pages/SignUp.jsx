@@ -35,7 +35,7 @@ const SignUp = () => {
         <div className="w-full rounded-lg shadow border md:mt-0 sm:max-w-md xl:p-0 bg-gray-800 border-gray-700">
           <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
             <h1 className="text-xl font-bold leading-tight tracking-tight text-white md:text-2xl">
-              Create an account
+              EchoRealm | Sign up
             </h1>
             <form className="space-y-4 md:space-y-6">
               <div>
@@ -92,7 +92,7 @@ const SignUp = () => {
                   required
                 />
               </div>
-              <div className="flex items-start">
+              <div className="hidden items-start">
                 <div className="flex items-center h-5">
                   <input
                     id="terms"
@@ -121,13 +121,13 @@ const SignUp = () => {
               >
                 Register
               </button>
-              <div className="flex flex-row justify-center items-center">
+              <div className="hidden flex-row justify-center items-center">
                 <div className="bg-slate-400 w-20 mt-1 mx-2 rounded-xl h-[1px] items-left"></div>
                 <span className="text-white text-xs">Or Continue With</span>
                 <div className="bg-slate-400 w-20 h-[1px] mt-1 mx-2 rounded-xl items-left"></div>
               </div>
 
-              <div className="flex flex-col gap-y-3 justify-center items-center">
+              <div className="hidden flex-col gap-y-3 justify-center items-center">
                 {/* Google button */}
                 <button
                   type="button"
